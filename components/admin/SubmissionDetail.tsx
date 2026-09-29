@@ -1,48 +1,35 @@
 
 "use client"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import type { Submission, AnimationStyle } from "@/lib/types"
 import { CATEGORY_LABELS } from "@/lib/types"
 import clsx from "clsx"
 
-interface Props { submission: Submission }
+interface Props { 
+  submission: Submission
+  initialSignedUrls: Record<string, string>
+}
 
-export default function SubmissionDetail({ submission: initial }: Props) {
+export default function SubmissionDetail({ submission: initial, initialSignedUrls }: Props) {
   const router = useRouter()
   const [sub, setSub] = useState(initial)
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [deleting, setDeleting] = useState(false)
-  const [signedUrls, setSignedUrls] = useState<Record<string, string>>({})
-  const [loadingPhotos, setLoadingPhotos] = useState(false)
+  const [signedUrls, setSignedUrls] = useState<Record<string, string>>(initialSignedUrls)
 
-  // Load signed URLs on mount
-  useEffect(() => {
-    const loadPhotos = async () => {
-      const paths = [sub.photo_1_url, sub.photo_2_url].filter(Boolean) as string[]
-      if (!paths.length) return
-      
-      setLoadingPhotos(true)
-      try {
-        const res = await fetch("/api/sign-url", { 
-          method: "POST", 
-          headers: { "Content-Type": "application/json" }, 
-          body: JSON.stringify({ paths }) 
-        })
-        const data = await res.json()
-        setSignedUrls(data)
-      } catch (error) {
-        console.error("Failed to load photos:", error)
-      } finally {
-        setLoadingPhotos(false)
-      }
-    }
-
-    loadPhotos()
-  }, [sub.photo_1_url, sub.photo_2_url])
+  // Debug logging
+  console.log("SubmissionDetail render:", {
+    photo_1_url: sub.photo_1_url,
+    photo_2_url: sub.photo_2_url,
+    initialSignedUrlsCount: Object.keys(initialSignedUrls).length,
+    signedUrlsKeys: Object.keys(signedUrls),
+    hasPhoto1Url: !!signedUrls[sub.photo_1_url!],
+    hasPhoto2Url: !!signedUrls[sub.photo_2_url!]
+  })
 
   const patch = async (updates: Partial<Submission>) => {
     setSaving(true)
@@ -220,26 +207,20 @@ export default function SubmissionDetail({ submission: initial }: Props) {
         {(sub.photo_1_url || sub.photo_2_url) && (
           <div className="bg-[#111010] border border-[#1e1b18] rounded-xl p-5">
             <p className="text-xs font-sans text-[#5a5348] uppercase tracking-[0.15em] mb-3">Photos</p>
-            {loadingPhotos ? (
-              <div className="flex items-center justify-center py-12">
-                <div className="text-xs font-sans text-[#5a5348]">Loading photos...</div>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 gap-3">
-                {[sub.photo_1_url, sub.photo_2_url].filter(Boolean).map((path, i) => (
-                  <div key={i} className="aspect-square rounded-lg overflow-hidden bg-[#0d0c0c] border border-[#1e1b18]">
-                    {signedUrls[path!] ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={signedUrls[path!]} alt={`Photo ${i + 1}`} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-[#3e3830] text-xs font-sans">
-                        <div className="animate-pulse">Loading...</div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+            <div className="grid grid-cols-2 gap-3">
+              {[sub.photo_1_url, sub.photo_2_url].filter(Boolean).map((path, i) => (
+                <div key={i} className="aspect-square rounded-lg overflow-hidden bg-[#0d0c0c] border border-[#1e1b18]">
+                  {signedUrls[path!] ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={signedUrls[path!]} alt={`Photo ${i + 1}`} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-[#3e3830] text-xs font-sans">
+                      No preview available
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

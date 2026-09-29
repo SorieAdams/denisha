@@ -20,7 +20,8 @@ export default async function HomePage() {
   const signedUrls: Record<string, string> = {}
   const paths = submissions.flatMap(s => [s.photo_1_url, s.photo_2_url]).filter(Boolean) as string[]
   
-  console.log("HomePage: Signing URLs for paths:", paths)
+  console.log("HomePage: Total approved submissions:", submissions.length)
+  console.log("HomePage: Photo paths to sign:", paths)
   
   for (const path of paths) {
     try {
@@ -36,13 +37,16 @@ export default async function HomePage() {
       if (urlData?.signedUrl) {
         console.log(`HomePage: Successfully signed ${path}`)
         signedUrls[path] = urlData.signedUrl
+      } else {
+        console.error(`HomePage: No signedUrl returned for ${path}`)
       }
     } catch (err) {
-      console.error(`HomePage: Error signing ${path}:`, err)
+      console.error(`HomePage: Exception signing ${path}:`, err)
     }
   }
   
-  console.log(`HomePage: Total signed URLs: ${Object.keys(signedUrls).length}`)
+  console.log(`HomePage: Successfully signed ${Object.keys(signedUrls).length} of ${paths.length} photos`)
+  console.log("HomePage: Signed URL keys:", Object.keys(signedUrls))
 
   return <BirthdayExperience submissions={submissions} initialSignedUrls={signedUrls} />
 }

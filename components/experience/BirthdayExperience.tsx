@@ -68,7 +68,7 @@ export default function BirthdayExperience({ submissions, initialSignedUrls }: P
   }, {} as Record<Category, typeof withStyles>)
 
   // Build rendered chapters with interludes injected
-  const renderedChapters: JSX.Element[] = []
+  const renderedChapters: React.ReactElement[] = []
   let globalIdx = 0
 
   for (const cat of CHAPTER_ORDER) {

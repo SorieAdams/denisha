@@ -22,8 +22,10 @@ export default function MemoryCard({ submission, signedUrls, index }: Props) {
   console.log(`MemoryCard ${index} - ${submission.name}:`, {
     photo_1_url: submission.photo_1_url,
     photo_2_url: submission.photo_2_url,
-    photo1_signed: photo1,
-    photo2_signed: photo2
+    photo1_signed: photo1 ? `${photo1.substring(0, 50)}...` : null,
+    photo2_signed: photo2 ? `${photo2.substring(0, 50)}...` : null,
+    hasPhoto1: !!photo1,
+    hasPhoto2: !!photo2
   })
 
   return (

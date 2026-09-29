@@ -17,35 +17,19 @@ async function isAuthenticated() {
 
 export async function PATCH(
   req: Request,
-  context: { params: Promise<{ id: string }> | { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     console.log("PATCH called")
     
-    // For now, skip auth check since service role handles permissions
-    // TODO: Implement proper admin session validation
-    
-    const params = 'then' in context.params ? await context.params : context.params
-    const { id } = params
+    const { id } = await context.params
     const body = await req.json()
     
     console.log("PATCH request for submission:", id, "with body:", body)
     
     const supabase = await createServiceClient()
     
-    // First verify the submission exists
-    const { data: existing, error: fetchError } = await supabase
-      .from("submissions")
-      .select("id")
-      .eq("id", id)
-      .single()
-    
-    if (fetchError || !existing) {
-      console.error("Submission not found:", id, fetchError)
-      return NextResponse.json({ error: "Submission not found" }, { status: 404 })
-    }
-    
-    // Now update it
+    // Direct update with select - no need to verify first
     const { data, error } = await supabase
       .from("submissions")
       .update(body)
@@ -56,6 +40,11 @@ export async function PATCH(
     if (error) {
       console.error("Supabase update error:", error)
       return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+    
+    if (!data) {
+      console.error("Submission not found:", id)
+      return NextResponse.json({ error: "Submission not found" }, { status: 404 })
     }
     
     console.log("Update successful:", data)
@@ -70,11 +59,10 @@ export async function PATCH(
 
 export async function DELETE(
   _: Request,
-  context: { params: Promise<{ id: string }> | { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const params = 'then' in context.params ? await context.params : context.params
-    const { id } = params
+    const { id } = await context.params
     const supabase = await createServiceClient()
     
     await supabase.storage
