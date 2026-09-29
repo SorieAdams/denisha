@@ -1,6 +1,6 @@
 
 "use client"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
 import type { Submission } from "@/lib/types"
 
@@ -13,12 +13,19 @@ interface Props {
 export default function PolaroidCard({ submission, photo1, photo2 }: Props) {
   const photoRef = useRef<HTMLDivElement>(null)
   const photoInView = useInView(photoRef, { once: true, margin: "-5% 0px" })
+  const [photo1Error, setPhoto1Error] = useState(false)
+  const [photo2Error, setPhoto2Error] = useState(false)
+
+  const photos = [
+    { src: photo1, error: photo1Error, setError: setPhoto1Error },
+    { src: photo2, error: photo2Error, setError: setPhoto2Error }
+  ].filter(p => p.src && !p.error)
 
   return (
     <div className="bg-[#0a0909] border border-[#1e1515] rounded-2xl overflow-hidden">
-      {(photo1 || photo2) && (
+      {photos.length > 0 && (
         <div ref={photoRef} className="flex gap-3 p-4 pb-2">
-          {[photo1, photo2].filter(Boolean).map((src, i) => (
+          {photos.map((photo, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, rotate: i === 0 ? -4 : 3, y: 20 }}
@@ -28,7 +35,16 @@ export default function PolaroidCard({ submission, photo1, photo2 }: Props) {
               style={{ boxShadow: "0 8px 28px rgba(0,0,0,0.6)" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src!} alt="" className="w-full aspect-square object-cover" loading="lazy" />
+              <img 
+                src={photo.src!} 
+                alt="" 
+                className="w-full aspect-square object-cover" 
+                loading="lazy"
+                onError={() => {
+                  console.error("Image failed to load:", photo.src)
+                  photo.setError(true)
+                }}
+              />
             </motion.div>
           ))}
         </div>

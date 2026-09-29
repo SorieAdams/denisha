@@ -12,7 +12,7 @@
   --teal: #4a9b9b;
 }
 
-html {
+html[data-scroll-behavior="smooth"] {
   scroll-behavior: smooth;
 }
 

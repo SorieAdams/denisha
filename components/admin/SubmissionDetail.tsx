@@ -47,17 +47,24 @@ export default function SubmissionDetail({ submission: initial }: Props) {
   const patch = async (updates: Partial<Submission>) => {
     setSaving(true)
     try {
+      console.log("Patching submission with updates:", updates)
+      
       const res = await fetch(`/api/admin/submissions/${sub.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updates),
       })
+      
+      console.log("Response status:", res.status)
+      
       if (res.ok) {
         const updated = await res.json()
+        console.log("Update successful:", updated)
         setSub(updated)
         router.refresh() // Refresh to update the dashboard
       } else {
-        console.error("Failed to update submission")
+        const errorData = await res.json().catch(() => ({ error: "Unknown error" }))
+        console.error("Failed to update submission:", res.status, errorData)
       }
     } catch (error) {
       console.error("Error updating submission:", error)

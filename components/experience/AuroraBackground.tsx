@@ -1,8 +1,15 @@
 "use client"
-import { useMemo } from "react"
+import { useMemo, useState, useEffect } from "react"
 
 export default function AuroraBackground() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   const sparks = useMemo(() => {
+    if (!mounted) return []
     return Array.from({ length: 35 }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
@@ -12,7 +19,7 @@ export default function AuroraBackground() {
       size: Math.random() > 0.7 ? 4 : 2,
       opacity: (0.2 + Math.random() * 0.5).toFixed(2),
     }))
-  }, [])
+  }, [mounted])
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden>
