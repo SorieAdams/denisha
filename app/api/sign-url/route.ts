@@ -1,4 +1,4 @@
-import { createServiceClient } from "@/lib/supabase/server"
+import { createServerClient } from "@supabase/ssr"
 import { NextResponse } from "next/server"
 
 export async function POST(req: Request) {
@@ -15,8 +15,20 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid paths" }, { status: 400 })
     }
 
-    console.log("[sign-url] Creating Supabase service client...")
-    const supabase = await createServiceClient()
+    console.log("[sign-url] Creating Supabase client with service role key...")
+    
+    // Create client directly with service role key (no caching)
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      {
+        cookies: {
+          getAll() { return [] },
+          setAll() {},
+        },
+      }
+    )
+    
     console.log("[sign-url] Service client created")
     
     const signed: Record<string, string> = {}

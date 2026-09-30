@@ -13,7 +13,15 @@ export async function POST(req: Request) {
     }
 
     const ext = file.name.split(".").pop()?.toLowerCase() || "jpg"
-    const path = `photos/${submissionId}/photo-${slot}.${ext}`
+    // If extension is 'blob' or invalid, try to determine from MIME type
+    const finalExt = (ext === "blob" || !["jpg", "jpeg", "png", "gif", "webp"].includes(ext))
+      ? (file.type.includes("png") ? "png" 
+         : file.type.includes("webp") ? "webp"
+         : file.type.includes("gif") ? "gif"
+         : "jpg")
+      : ext
+    
+    const path = `photos/${submissionId}/photo-${slot}.${finalExt}`
     const arrayBuffer = await file.arrayBuffer()
     const buffer = Buffer.from(arrayBuffer)
 
