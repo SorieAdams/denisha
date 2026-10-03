@@ -10,7 +10,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Missing id parameter" }, { status: 400 })
     }
     
-    const supabase = await createServiceClient()
+    const supabase = createServiceClient()
     
     // Get submission
     const { data: submission, error: subError } = await supabase

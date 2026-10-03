@@ -10,7 +10,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    const supabase = await createServiceClient()
+    const supabase = createServiceClient()
     const { data, error } = await supabase
       .from("submissions")
       .insert({ name, relationship, category, message, memory: memory || null, wish: wish || null, status: "pending" })

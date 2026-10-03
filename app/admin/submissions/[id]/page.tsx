@@ -12,7 +12,7 @@ export default async function SubmissionDetailPage({ params }: { params: Promise
   if (!user) redirect("/admin")
 
   // Use service client for everything
-  const serviceSupabase = await createServiceClient()
+  const serviceSupabase = createServiceClient()
   
   const { data } = await serviceSupabase
     .from("submissions")
