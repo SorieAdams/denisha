@@ -16,7 +16,7 @@ export async function PATCH(
       if (key in body) updates[key] = body[key]
     }
 
-    const supabase = createServiceClient()
+    const supabase = await createServiceClient()
 
     const { data, error } = await supabase
       .from("submissions")
@@ -48,7 +48,7 @@ export async function DELETE(
   try {
     const { id } = await context.params
     
-    const supabase = createServiceClient()
+    const supabase = await createServiceClient()
 
     // Fetch photo paths before deleting
     const { data: existing, error: fetchError } = await supabase

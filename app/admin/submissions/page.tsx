@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server"
+import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import SubmissionsDashboard from "@/components/admin/SubmissionsDashboard"
 import type { Submission } from "@/lib/types"
@@ -10,7 +10,8 @@ export default async function SubmissionsPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect("/admin")
 
-  const { data } = await supabase
+  const serviceSupabase = await createServiceClient()
+  const { data } = await serviceSupabase
     .from("submissions")
     .select("*")
     .order("created_at", { ascending: false })
