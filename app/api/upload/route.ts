@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     const arrayBuffer = await file.arrayBuffer()
     const buffer = Buffer.from(arrayBuffer)
 
-    const supabase = await createServiceClient()
+    const supabase = createServiceClient()
     const { error: uploadError } = await supabase.storage
       .from("denisha-memories")
       .upload(path, buffer, { contentType: file.type, upsert: true })

@@ -9,17 +9,19 @@ interface Props {
 
 // Three rhythm-line variants for Sorie to choose from.
 // Active one is LINES[2] (index 2). Swap to [2b] or [2c] before launch.
-const RHYTHM_LINE = "Passionate. Focused. Unstoppable when she sets her mind to something."
-// Variant B: "Faithful. Determined. Someone who turns conviction into action."
-// Variant C: "Rooted. Relentless. Someone the people around her quietly count on."
+const RHYTHM_LINE = "You are Passionate. Focused. Unstoppable when she sets her mind to something, Faithful. Determined. Someone who turns conviction into action, Rooted. Relentless. Someone the people around her quietly count on. But For Me, I am your boxing bag, anger collector etc. But I Love It.. I Love everything but sometimes..i don't know.. "
 
 const LINES: { text: string; size: "large" | "normal" | "small"; showSunflower?: boolean }[] = [
   { text: "For someone very special...", size: "small" },
   { text: "Denisha Salamatou Voegli", size: "large", showSunflower: true },
   { text: RHYTHM_LINE, size: "small" },
   { text: "Today is about you.", size: "normal" },
-  { text: "You've walked through more than most people know — and grown through every bit of it.", size: "small" },
-  { text: "Welcome to your memories.", size: "normal" },
+  { text: 
+    "Sometimes I wonder... 🤍 Why did you allow me to be the one who calls you anytime? Why am I the one who gets your attention anytime? Why am I the one you share so many deep things with? Even though I’ve made you cry... made you angry... and kept messing up in ways I probably shouldn’t have... 😔 Yet somehow, you kept giving me chances. You kept showing grace. You kept letting me stay. 🤍 And honestly... I don’t even have much to give you on this birthday. 🎂", size: "normal" },
+  { text:  "But I wanted to give you something that could hold the things money can't buy... Memories, Words, Laughter, Prayers, Moments. People who love and appreciate you. 🌻✨", size: "normal" },
+  { text: "So... I made this for you, Your first gift. 🎁 Not just a website... but a little place where some of the people and moments that have been part of your journey can live together. A place you can come back to... whenever you want to remember how loved, appreciated, and prayed for you are", size: "normal" },
+  { text: "So, Denisha...Now... let's turn the pages. ✨", size: "small" },
+  { text: "Welcome to your Memory Book. 📖🌻.", size: "normal" },
 ]
 
 export default function OpeningSequence({ count, onComplete }: Props) {

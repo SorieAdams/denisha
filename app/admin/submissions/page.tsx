@@ -10,7 +10,7 @@ export default async function SubmissionsPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect("/admin")
 
-  const serviceSupabase = await createServiceClient()
+  const serviceSupabase = createServiceClient()
   const { data } = await serviceSupabase
     .from("submissions")
     .select("*")

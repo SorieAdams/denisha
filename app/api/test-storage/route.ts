@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 
 export async function GET() {
   try {
-    const supabase = await createServiceClient()
+    const supabase = createServiceClient()
     
     // List all files in the bucket
     const { data: files, error: listError } = await supabase.storage

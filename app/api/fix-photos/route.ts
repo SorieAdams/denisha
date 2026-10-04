@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 
 export async function GET() {
   try {
-    const supabase = await createServiceClient()
+    const supabase = createServiceClient()
     
     // Get all submissions with photos
     const { data: submissions, error: subError } = await supabase
@@ -67,7 +67,7 @@ export async function GET() {
 
 export async function POST() {
   try {
-    const supabase = await createServiceClient()
+    const supabase = createServiceClient()
     
     // Get all submissions with .blob photos
     const { data: submissions, error: subError } = await supabase

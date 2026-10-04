@@ -5,7 +5,7 @@ import type { Submission } from "@/lib/types"
 export const dynamic = "force-dynamic"
 
 export default async function HomePage() {
-  const supabase = await createServiceClient()
+  const supabase = createServiceClient()
 
   const { data } = await supabase
     .from("submissions")

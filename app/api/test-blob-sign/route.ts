@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 
 export async function GET() {
   try {
-    const supabase = await createServiceClient()
+    const supabase = createServiceClient()
     
     const testPath = "photos/174bd4d7-86bf-482a-9290-06517065aa5e/photo-1.blob"
     

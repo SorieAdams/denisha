@@ -51,7 +51,7 @@ export default function MilestoneInterlude() {
           transition={{ delay: 0.5, duration: 1.2 }}
           className="font-sans text-sm md:text-base tracking-[0.25em] text-crimson uppercase mb-6"
         >
-          A milestone worth honoring
+          Milestones worth honoring
         </motion.p>
 
         <motion.h2
@@ -60,7 +60,8 @@ export default function MilestoneInterlude() {
           transition={{ delay: 0.7, duration: 1.2, ease: "easeOut" }}
           className="font-serif text-4xl md:text-5xl text-cream leading-snug mb-4"
         >
-          She passed her PreMeds.
+          You Conviction to action, You have kept you conviction for years and still working with the Holy Spirit to keep your Conviction.
+          All battles in th year passed, sometimes it&apos;s like you are giving up but then you arise with Patience, Strenght, and Love, I honor you ma&apos;am.
         </motion.h2>
 
         <motion.p
@@ -69,8 +70,9 @@ export default function MilestoneInterlude() {
           transition={{ delay: 1, duration: 1.2 }}
           className="font-serif text-base md:text-lg text-cream-dim leading-relaxed mb-8"
         >
-          She is now entering medical school — a door that opened because she refused
-          to stop pushing. Years of discipline, faith, and quiet determination.
+          You passed her PreMeds.
+          You are now entering medical school — a door that opened because you refused
+          to stop pushing. Years of discipline, faith, and quiet determination, plus All night of Studying and Labouring.
           This year, it paid off.
         </motion.p>
 
@@ -88,6 +90,7 @@ export default function MilestoneInterlude() {
           transition={{ delay: 1.5, duration: 1 }}
           className="font-serif text-sm md:text-base text-crimson italic mt-6"
         >
+          Pastor Denisha in the making..haha,
           Doctor Denisha is not a dream. It is what is next.
         </motion.p>
       </motion.div>
