@@ -57,7 +57,7 @@ export default function KeepsakeExport({ submissions, signedUrls }: Props) {
       doc.setFont("times", "italic")
       doc.setFontSize(9)
       doc.setTextColor(180, 160, 140)
-      doc.text("“When the time is right, I the Lord will make it happen.”  — Isaiah 60:22", W / 2, 65, { align: "center" })
+      doc.text("\"When the time is right, I the Lord will make it happen.\" - Isaiah 60:22", W / 2, 65, { align: "center" })
 
       let y = 76
 
@@ -82,7 +82,7 @@ export default function KeepsakeExport({ submissions, signedUrls }: Props) {
         doc.setFont("times", "italic")
         doc.setFontSize(9.5)
         doc.setTextColor(245, 240, 232)
-        const lines = doc.splitTextToSize(`“${sub.message}”`, W - 52)
+        const lines = doc.splitTextToSize("\"" + sub.message + "\"", W - 52)
         const blockH = lines.length * 5 + 12
         if (y + blockH > 268) break
         doc.text(lines, W / 2, y, { align: "center" })
@@ -90,7 +90,7 @@ export default function KeepsakeExport({ submissions, signedUrls }: Props) {
         doc.setFont("helvetica", "normal")
         doc.setFontSize(7.5)
         doc.setTextColor(155, 35, 53)
-        doc.text(`— ${sub.name}, ${sub.relationship}`, W / 2, y, { align: "center" })
+        doc.text("- " + sub.name + ", " + sub.relationship, W / 2, y, { align: "center" })
         y += 9
         doc.setDrawColor(30, 21, 21)
         doc.setLineWidth(0.2)

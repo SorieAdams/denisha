@@ -9,7 +9,7 @@ interface Props {
 
 // Three rhythm-line variants for Sorie to choose from.
 // Active one is LINES[2] (index 2). Swap to [2b] or [2c] before launch.
-const RHYTHM_LINE = "You are Passionate. Focused. Unstoppable when she sets her mind to something, Faithful. Determined. Someone who turns conviction into action, Rooted. Relentless. Someone the people around her quietly count on. But For Me, I am your boxing bag, anger collector etc. But I Love It.. I Love everything but sometimes..i don't know.. "
+const RHYTHM_LINE = "You are Passionate. Focused. Unstoppable when you sets your mind to something, Faithful. Determined. Someone who turns conviction into action, Rooted. Relentless. Someone the people around her quietly count on. But For Me, I am your boxing bag, anger collector etc. But I Love It.. I Love everything but sometimes..i don't know.. "
 
 const LINES: { text: string; size: "large" | "normal" | "small"; showSunflower?: boolean }[] = [
   { text: "For someone very special...", size: "small" },

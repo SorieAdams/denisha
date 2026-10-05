@@ -28,9 +28,9 @@ export const CATEGORY_LABELS: Record<Category, string> = {
 }
 
 export const CATEGORY_FRAMING: Record<Category, string> = {
-  family: "The ones who have known her from the beginning — the people who shaped her foundation.",
-  friends: "The ones who chose her. Who stayed close when it mattered most.",
-  church: "The people who have shared her walk with Christ — a walk that has taken her further than anyone expected.",
-  school_work: "Driven. Disciplined. She set her sights on medicine and did not look away.",
+  family: "The ones who have known you from the beginning.. the people who shaped your foundation.",
+  friends: "The ones who chose you. Who stayed close when it mattered most.",
+  church: "The people who have shared your walk with Christ ... a walk that has taken you further than anyone expected.",
+  school_work: "Driven. Disciplined. you set your sights on medicine and did not look away.",
   other: "And everyone else who wanted her to know something.",
 }

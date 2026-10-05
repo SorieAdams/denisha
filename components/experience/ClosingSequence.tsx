@@ -27,7 +27,7 @@ export default function ClosingSequence() {
           You have read all the messages, wishes, and prayers from your loved ones... 🤍
           And I think everything has been said...
           But just know,...You carry yourself with a quiet kind of strength that most people don’t even recognize
-          as strength — because it isn’t loud. It doesn’t need to be. It shows up
+          as strength .. because it isn’t loud. It doesn’t need to be. It shows up
           in the discipline you keep when no one is watching, in the faith you hold
           when things don’t make sense yet, in the way you simply keep going.
         </motion.p>
@@ -55,13 +55,29 @@ export default function ClosingSequence() {
           The time you needed someone to be there for you...
           The time I should have been there...
           That&apos;s the time I messed up. 💔
-          I can&apos;t forget the time of your exam... when you were sick and having scraps...
+          </motion.p>
+
+          <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.9, duration: 1.2, ease: "easeOut" }}
+          className="font-serif text-sm text-cream-dim leading-loose"
+          >
+          I can&apos;t forget the time of your exam... when you were sick and having cramps...
           I wasn&apos;t there the way I was supposed to be.
           And honestly, I kept regretting everything.
           I tried to place it on...
           &quot;I was asking... I was calling... but you didn&apos;t say anything, and you were pushing me away...&quot;
           But the truth is...
           I was really pained because I failed to be there for you.
+          </motion.p>
+
+          <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.9, duration: 1.2, ease: "easeOut" }}
+          className="font-serif text-sm text-cream-dim leading-loose"
+          >
           And looking back, I know I could have done better. 🥲
           Through all our battles, misunderstandings, hiccups, and everything in between...
           I strongly believe God is building you.
@@ -84,6 +100,14 @@ export default function ClosingSequence() {
           I have my issues.
           But I just want you to be by my side...
           with complete trust. 🤍
+          </motion.p>
+
+          <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.9, duration: 1.2, ease: "easeOut" }}
+          className="font-serif text-sm text-cream-dim leading-loose"
+          >
           And today is your birthday...
           I don&apos;t want to bore you with all of this. 😂🥲
           They are the past.
@@ -101,14 +125,19 @@ export default function ClosingSequence() {
           May He give you breakthrough after breakthrough. 🥹🙏🏽
           I wish you all the goodies and besties this world can give. 😂❤️
           More growth. More achievements. More grace. More memories. More reasons to smile. 🌻 And above everything... More of Christ. 🤍✝️
+          </motion.p>
 
+          <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.9, duration: 1.2, ease: "easeOut" }}
+          className="font-serif text-sm text-cream-dim leading-loose"
+          >
           Happy Awesome and Blissful Birthday, Denisha. 🎂🎉🌻
           Happy Birthday, Abba&apos;s Celeb. 👑🤍
           And thank you...
           For being part of this story. 📖🤍
-          
-           🌻
-        </motion.p>
+          </motion.p>
 
         <motion.p
           initial={{ opacity: 0, y: 24 }}
@@ -117,7 +146,7 @@ export default function ClosingSequence() {
           className="font-serif text-sm text-cream-dim leading-loose"
         >
           The people in this experience didn’t just know your name.
-          They knew you. And every single one of them wanted you to feel that today.
+          They know you. And every single one of them wanted you to feel that today.
         </motion.p>
 
         <motion.p
@@ -137,7 +166,7 @@ export default function ClosingSequence() {
           className="font-sans text-xs tracking-[0.15em] text-crimson uppercase"
         >
           May this new chapter carry the same grace that brought you this far
-          — in your faith, your calling, and the love still ahead of you.
+          in your faith, your calling, and the love still ahead of you.
         </motion.p>
 
         {/* Sunflower motif */}
