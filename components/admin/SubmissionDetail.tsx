@@ -62,6 +62,7 @@ export default function SubmissionDetail({ submission: initial, initialSignedUrl
     }
 
     loadPhotos()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sub.photo_1_url, sub.photo_2_url])
 
   // Debug logging
@@ -106,9 +107,25 @@ export default function SubmissionDetail({ submission: initial, initialSignedUrl
 
   const deleteSubmission = async () => {
     setDeleting(true)
-    await fetch(`/api/admin/submissions/${sub.id}`, { method: "DELETE" })
-    router.push("/admin/submissions")
-    router.refresh()
+    try {
+      const res = await fetch(`/api/admin/submissions/${sub.id}`, { method: "DELETE" })
+      
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ error: "Unknown error" }))
+        console.error("Failed to delete submission:", res.status, errorData)
+        alert(`Failed to delete submission: ${errorData.error || "Unknown error"}`)
+        setDeleting(false)
+        return
+      }
+      
+      // Success - navigate back
+      router.push("/admin/submissions")
+      router.refresh()
+    } catch (error) {
+      console.error("Error deleting submission:", error)
+      alert("Failed to delete submission. Please try again.")
+      setDeleting(false)
+    }
   }
 
   const inputClass = "w-full bg-[#0f0e0e] border border-[#2e2a25] rounded-lg px-3 py-2.5 text-cream placeholder-[#4a4540] focus:outline-none focus:border-gold transition-colors font-sans text-sm resize-none"

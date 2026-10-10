@@ -29,7 +29,19 @@ export async function PATCH(
     
     const supabase = await createServiceClient()
     
-    // Direct update with select - no need to verify first
+    // First verify the submission exists
+    const { data: existing, error: fetchError } = await supabase
+      .from("submissions")
+      .select("id")
+      .eq("id", id)
+      .single()
+    
+    if (fetchError || !existing) {
+      console.error("Submission not found:", id, fetchError)
+      return NextResponse.json({ error: "Submission not found" }, { status: 404 })
+    }
+    
+    // Now update and select
     const { data, error } = await supabase
       .from("submissions")
       .update(body)
@@ -40,11 +52,6 @@ export async function PATCH(
     if (error) {
       console.error("Supabase update error:", error)
       return NextResponse.json({ error: error.message }, { status: 500 })
-    }
-    
-    if (!data) {
-      console.error("Submission not found:", id)
-      return NextResponse.json({ error: "Submission not found" }, { status: 404 })
     }
     
     console.log("Update successful:", data)
@@ -63,21 +70,46 @@ export async function DELETE(
 ) {
   try {
     const { id } = await context.params
+    console.log("DELETE called for submission:", id)
+    
     const supabase = await createServiceClient()
     
-    await supabase.storage
-      .from("denisha-memories")
-      .remove([
-        `photos/${id}/photo-1.jpg`, 
-        `photos/${id}/photo-2.jpg`, 
-        `photos/${id}/photo-1.png`, 
-        `photos/${id}/photo-2.png`, 
-        `photos/${id}/photo-1.webp`, 
-        `photos/${id}/photo-2.webp`
-      ])
+    // First verify the submission exists
+    const { data: existing, error: fetchError } = await supabase
+      .from("submissions")
+      .select("photo_1_url, photo_2_url")
+      .eq("id", id)
+      .single()
     
+    if (fetchError) {
+      console.error("Submission not found:", id, fetchError)
+      return NextResponse.json({ error: "Submission not found" }, { status: 404 })
+    }
+    
+    // Delete photos from storage if they exist
+    const photoPaths: string[] = []
+    if (existing.photo_1_url) photoPaths.push(existing.photo_1_url)
+    if (existing.photo_2_url) photoPaths.push(existing.photo_2_url)
+    
+    if (photoPaths.length > 0) {
+      console.log("Deleting photos from storage:", photoPaths)
+      const { error: storageError } = await supabase.storage
+        .from("denisha-memories")
+        .remove(photoPaths)
+      
+      if (storageError) {
+        console.error("Storage deletion error (non-fatal):", storageError)
+      }
+    }
+    
+    // Delete the submission record
     const { error } = await supabase.from("submissions").delete().eq("id", id)
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+    if (error) {
+      console.error("Submission deletion error:", error)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+    
+    console.log("Deletion successful for:", id)
     return NextResponse.json({ success: true })
   } catch (err) {
     console.error("DELETE error:", err)
